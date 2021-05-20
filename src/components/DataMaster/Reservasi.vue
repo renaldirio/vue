@@ -45,7 +45,7 @@
         </v-card-title>
         <v-card-text>
             <v-container>
-                <v-select
+                <!-- <v-select
                     :items="namaKaryawans"
                     item-text="nama_karyawan"
                     item-value="id_karyawan"
@@ -53,7 +53,16 @@
                     prepend-icon="mdi-card-account-details"
                     v-model="form.nama_karyawan"
                     required
-                ></v-select>
+                ></v-select> -->
+                <v-text-field
+                    item-text="nama_karyawan"
+                    item-value="id_karyawan"
+                    label="Nama Karyawan"
+                    readonly
+                    prepend-icon="mdi-card-account-details"
+                    v-model="form.nama_karyawan"
+                    required
+                ></v-text-field>
                 <v-select
                     :items="noMejas"
                     item-text="no_meja"
@@ -61,15 +70,17 @@
                     label="No Meja"
                     prepend-icon="mdi-numeric-6-box-multiple-outline"
                     v-model="form.no_meja"
+                    :rules="noRules"
                     required
                 ></v-select>
                 <v-select
                     :items="namaCustomers"
                     item-text="nama_customer"
                     item-value="id_customer"
-                    label="nama customer"
+                    label="Nama customer"
                     prepend-icon="mdi-account"
                     v-model="form.nama_customer"
+                    :rules="custRules"
                     required
                 ></v-select>
 
@@ -78,21 +89,24 @@
                     label="Sesi Reservasi"
                     :items ="['Lunch', 'Dinner']"
                     prepend-icon="mdi-clock-time-five"
+                    :rules="sesiRules"
                     required
                 ></v-select>
 
                 <v-text-field
                     v-model="form.jml_orgReservasi"
                     label="Jumlah Orang"
-                    prepend-icon="mdi-format-text"
+                    prepend-icon="mdi-account-group"
+                    :rules="jmlRules"
                     required
                 ></v-text-field>
 
                 <v-text-field
                     v-model="form.tgl_reservasi"
-                    prepend-icon="mdi-account-group"
+                    prepend-icon="mdi-calendar"
                     type="date"
                     label="Tanggal Reservasi"
+                    :rules="tglRules"
                     required
                 ></v-text-field>
             </v-container>
@@ -164,7 +178,7 @@ export default {
             reservasi: new FormData,
             reservasis: [],
             form:{
-                nama_karyawan: null,
+                nama_karyawan: localStorage.getItem("nama_karyawan"),
                 nama_customer: null,
                 no_meja: null,
                 jam_reservasi: null,
@@ -176,6 +190,12 @@ export default {
             namaCustomers:[],
             namaKaryawans:[],
             noMejas:[],
+            noRules: [v => !!v || 'No Meja is required'],
+            custRules: [v => !!v || 'Nama Customer is required'],
+            sesiRules: [v => !!v || 'Sesi Reservasi is required'],
+            jmlRules: [v => !!v || 'Jumlah Orang is required'],
+            tglRules: [v => !!v || 'Tanggal Reservasi is required'],
+            
         };
     },
     methods: {
@@ -212,7 +232,7 @@ export default {
                 }
             }).then(response => {
                 this.namaKaryawans = response.data.data;
-                
+
                 console.log(this.namaKaryawans);
             })
         },
@@ -242,7 +262,8 @@ export default {
         },
         //simpan data menu
         save() {
-            this.reservasi.append('id_karyawan', this.form.nama_karyawan);
+            var name = localStorage.getItem("id");
+            this.reservasi.append('id_karyawan', name);
             this.reservasi.append('id_customer', this.form.nama_customer);
             this.reservasi.append('id_meja', this.form.no_meja);
             this.reservasi.append('jam_reservasi', this.form.jam_reservasi);
@@ -336,13 +357,6 @@ export default {
             this.form.tgl_reservasi = item.tgl_reservasi;
             this.dialog = true;
 
-            for(var i=0;i < this.namaKaryawans.length; i++)
-            {
-                if(this.namaKaryawans[i].nama_karyawan == item.nama_karyawan)
-                {
-                    this.form.nama_karyawan = this.namaKaryawans[i];
-                }
-            }
             for(var j=0;j < this.noMejas.length; j++)
             {
                 if(this.noMejas[j].no_meja == item.no_meja)

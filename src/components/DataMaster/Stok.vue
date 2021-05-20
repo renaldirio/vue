@@ -34,6 +34,11 @@
                         mdi-delete
                     </v-icon>
                 </template> 
+                <template v-slot:[`item.harga_beli`]="{ item }">
+                    <div class="text-center" style="margin-left: -80px;">
+                        Rp. {{ item.harga_beli }}
+                    </div>  
+                </template>
             </v-data-table>
         </v-card>
 
@@ -44,6 +49,7 @@
         </v-card-title>
         <v-card-text>
             <v-container>
+                
                 <v-select
                     :items="namaBahans"
                     item-text="nama_bahan"
@@ -51,6 +57,7 @@
                     label="Nama Bahan"
                     prepend-icon="mdi-semantic-web"
                     v-model="formStok.nama_bahan"
+                    :rules="bahanRules"
                     required
                 ></v-select>
 
@@ -59,13 +66,14 @@
                     label="Unit Stok"
                     :items ="['Gram', 'Mililiter']"
                     prepend-icon="mdi-bowl"
+                    :rules="unitRules"
                     required
                 ></v-select>
 
                 <v-text-field
                     v-model="formStok.jumlah_stok"
                     label="Jumlah stok"
-                    :rules="jumlahRules"
+                    :rules="jmlRules"
                     prepend-icon="mdi-flask-empty-plus"
                     required
                 ></v-text-field>
@@ -81,7 +89,7 @@
                 <v-text-field
                     v-model="formStok.incoming_stok"
                     label="Incoming Stok"
-                    :rules="IncomingRules"
+                    :rules="incomingRules"
                     prepend-icon="mdi-arrow-right-bold-circle"
                     required
                 ></v-text-field>
@@ -153,6 +161,11 @@ export default {
             ],
             stok: new FormData,
             stoks: [],
+            bahanRules: [v => !!v || 'Nama Bahan is required'],
+            jmlRules: [v => !!v || 'Jumlah Stok is required'],
+            unitRules: [v => !!v || 'Unit Stok is required'],
+            hargaRules: [v => !!v || 'Harga Beli is required'],
+            incomingRules: [v => !!v || 'Incoming Stok is required'],
             formStok: {
                 nama_bahan: null,
                 jumlah_stok: null,

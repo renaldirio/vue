@@ -52,7 +52,7 @@
     </v-row>
   </v-container>
 
-  <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
+  <v-snackbar v-model="snackbar" :color="color" timeout="3000" bottom>
     {{error_message}}
   </v-snackbar>
 </v-app>
@@ -83,6 +83,7 @@ export default {
           password: this.password
         }).then((response) => {
           localStorage.setItem('id', response.data.user.id_karyawan);
+          localStorage.setItem('nama_karyawan', response.data.user.nama_karyawan);
           localStorage.setItem('token', response.data.access_token);
           localStorage.setItem('current_role', response.data.user.id_jabatan);
           this.error_message = response.data.message;

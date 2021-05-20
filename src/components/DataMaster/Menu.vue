@@ -35,6 +35,11 @@
                         mdi-delete
                     </v-icon>
                 </template> 
+                <template v-slot:[`item.harga_menu`]="{ item }">
+                    <div class="text-center" >
+                        Rp. {{ item.harga_menu }}
+                    </div>  
+                </template>
             </v-data-table>
         </v-card>
 
@@ -70,12 +75,19 @@
                     required
                 ></v-select>
 
-                <v-text-field
+                <!-- <v-text-field
                     v-model="formMenu.unit_menu"
                     label= "Unit Menu"
                     prepend-icon="mdi-bowl"
                     required
-                ></v-text-field>
+                ></v-text-field> -->
+                <v-select
+                    v-model="formMenu.unit_menu"
+                    label="Unit Menu"
+                    :items ="['Plate', 'Bowl', 'Mini Bowl', 'Glass', 'Bottle']"
+                    prepend-icon="mdi-bowl"
+                    required
+                ></v-select>
 
                 <v-text-field
                     v-model="formMenu.deskripsi_menu"

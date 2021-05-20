@@ -14,7 +14,7 @@
 
              <v-list dense nav>
                  <v-list-item
-                     v-for="item in items"
+                     v-for="item in UserRole"
                      :key="item.title"
                      link
                      tag="router-link"
@@ -50,7 +50,7 @@
     data() {
         return {
             drawer: true,
-            items: [
+            itemsManager: [
                 { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
                 { title: "Karyawan", icon:"mdi-account", to: "/karyawans" },
                 { title: "Customer", icon:"mdi-account-details", to: "/customers" },
@@ -63,6 +63,31 @@
                 { title: "Transaksi", icon:"mdi-cash-multiple", to: "/Transaksi" },
                 { title: "Laporan", icon:"mdi-alert", to: "/Laporan" }
             ],
+            itemsOwner: [
+                { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
+                { title: "Karyawan", icon:"mdi-account", to: "/karyawans" },
+                { title: "Meja", icon:"mdi-sofa-single", to: "/mejas" },
+            ],
+            itemsWaiter: [
+                { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
+                { title: "Customer", icon:"mdi-account-details", to: "/customers" },
+                { title: "Meja", icon:"mdi-sofa-single", to: "/mejas" },
+                { title: "Reservasi", icon:"mdi-notebook-edit", to: "/Reservasi" },
+            ],
+            itemsCashier: [
+                { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
+                { title: "Meja", icon:"mdi-sofa-single", to: "/mejas" },
+                { title: "Menu", icon:"mdi-food", to: "/menus" },
+                { title: "Reservasi", icon:"mdi-notebook-edit", to: "/Reservasi" },
+                { title: "Pesanan", icon:"mdi-clipboard-list", to: "/Pesanan" },
+            ],
+            itemsChef: [
+                { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
+                { title: "Meja", icon:"mdi-sofa-single", to: "/mejas" },
+                { title: "Bahan", icon:"mdi-filter-menu", to: "/bahans" },
+                { title: "Stok", icon:"mdi-warehouse", to: "/stoks" },
+                { title: "Pesanan", icon:"mdi-clipboard-list", to: "/Pesanan" },
+            ],
         };
     },
     methods: {
@@ -73,7 +98,24 @@
             });
         }
         
+    },
+    computed: {
+    UserRole: function() {
+      if(localStorage.getItem("current_role") === '2') {
+        return this.itemsOwner
+      } else if(localStorage.getItem("current_role") === '3') {
+        return this.itemsManager
+      } else if(localStorage.getItem("current_role") === '1') {
+        return this.itemsWaiter
+      } else if(localStorage.getItem("current_role") === '4') {
+        return this.itemsCashier
+      } else if(localStorage.getItem("current_role") === '5') {
+        return this.itemsChef
+      }
+
+      return null;
     }
+  },
  };
  </script>
 

@@ -47,8 +47,17 @@
                 <v-text-field
                     v-model="formBahan.nama_bahan"
                     label="Nama Bahan"
+                    :rules="bahanRules"
                     required
                     prepend-icon="mdi-semantic-web"
+                ></v-text-field>
+
+                <v-text-field
+                    v-model="formBahan.jml_bahanTersedia"
+                    label="Jumlah Tersedia"
+                    prepend-icon="mdi-flask-empty-plus"
+                    :rules="jmlRules"
+                    required
                 ></v-text-field>
 
                 <v-select
@@ -56,15 +65,11 @@
                     label="Unit Bahan"
                     :items ="['Plate', 'Bowl', 'Mini Bowl', 'Glass', 'Bottle']"
                     prepend-icon="mdi-bowl"
+                    :rules="unitRules"
                     required
                 ></v-select>
 
-                <v-text-field
-                    v-model="formBahan.jml_bahanTersedia"
-                    label="Jumlah Tersedia"
-                    prepend-icon="mdi-flask-empty-plus"
-                    required
-                ></v-text-field>
+                
             </v-container>
         </v-card-text>
         <v-card-actions>
@@ -127,8 +132,8 @@ export default {
                 align: "start",
                 sortable: true,
                 value: "nama_bahan" },
-                { text: "Unit Bahan", value: "unit_bahan" },
                 { text: "Jumlah Bahan Tersedia", value: "jml_bahanTersedia" },
+                { text: "Unit Bahan", value: "unit_bahan" },
                 { text: "Actions", value: "actions" },
             ],
             bahan: new FormData,
@@ -140,6 +145,10 @@ export default {
             },
             deleteId: '',
             editId: '',
+            bahanRules: [v => !!v || 'Nama Bahan is required'],
+            jmlRules: [v => !!v || 'Jumlah Bahan Tersedia is required'],
+            unitRules: [v => !!v || 'Unit Bahan is required'],
+
         };
     },
     methods: {
