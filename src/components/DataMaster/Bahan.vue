@@ -105,7 +105,7 @@
 </v-dialog>
 
 <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
-    {{error_message}}
+    {{message}}
 </v-snackbar>
 
 </v-main>
@@ -124,10 +124,10 @@ export default {
             dialog: false,
             dialogConfirm: false,
             headers: [
-                { text: "Id Bahan",
-                align: "start",
-                sortable: true,
-                value: "id_bahan" },
+                // { text: "Id Bahan",
+                // align: "start",
+                // sortable: true,
+                // value: "id_bahan" },
                 { text: "Nama Bahan",
                 align: "start",
                 sortable: true,
@@ -184,6 +184,7 @@ export default {
                 }
             }).then(response => {
                 this.error_message=response.data.message;
+                this.message='Berhasil Menambahkan Bahan';
                 this.color="green"
                 this.snackbar=true;
                 this.load = false;
@@ -192,6 +193,7 @@ export default {
                 this.resetForm();
             }).catch(error => {
                 this.error_message=error.response.data.message;
+                this.message='Field Harus di Isi';
                 this.color="red"
                 this.snackbar=true;
                 this.load = false;
@@ -212,6 +214,7 @@ export default {
                 }
             }).then(response => {
                 this.error_message=response.data.message;
+                this.message='Berhasil Mengupdate Bahan';
                 this.color="green"
                 this.snackbar=true;
                 this.load = false;
@@ -221,6 +224,7 @@ export default {
                 this.inputType = 'Tambah';
             }).catch(error => {
                 this.error_message=error.response.data.message;
+                this.message='Gagal Update, Field Harus di Isi';
                 this.color="red"
                 this.snackbar=true;
                 this.load = false;
@@ -236,6 +240,7 @@ export default {
                 }
             }).then(response => {
                 this.error_message=response.data.message;
+                this.message='Berhasil Hapus Bahan';
                 this.color="green"
                 this.snackbar=true;
                 this.load = false;
@@ -245,6 +250,7 @@ export default {
                 this.inputType = 'Tambah';
             }).catch(error => {
                 this.error_message=error.response.data.message;
+                this.message='Gagal Hapus Bahan';
                 this.color="red"
                 this.snackbar=true;
                 this.load = false;

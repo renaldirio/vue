@@ -129,7 +129,7 @@
 </v-dialog>
 
 <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
-    {{error_message}}
+    {{message}}
 </v-snackbar>
 
 </v-main>
@@ -148,10 +148,10 @@ export default {
             dialog: false,
             dialogConfirm: false,
             headers: [
-                { text: "Id Stok",
-                align: "start",
-                sortable: true,
-                value: "id_stok" },
+                // { text: "Id Stok",
+                // align: "start",
+                // sortable: true,
+                // value: "id_stok" },
                 { text: "Nama Bahan", value: "nama_bahan"},
                 { text: "Jumlah Stok", value: "jumlah_stok"},
                 { text: "Unit Stok", value: "unit_stok"},
@@ -228,6 +228,7 @@ export default {
                 }
             }).then(response => {
                 this.error_message=response.data.message;
+                this.message='Berhasil Menambahkan Stok';
                 this.color="green"
                 this.snackbar=true;
                 this.load = false;
@@ -236,6 +237,7 @@ export default {
                 this.resetForm();
             }).catch(error => {
                 this.error_message=error.response.data.message;
+                this.message='Field Harus di Isi';
                 this.color="red"
                 this.snackbar=true;
                 this.load = false;
@@ -258,6 +260,7 @@ export default {
                 }
             }).then(response => {
                 this.error_message=response.data.message;
+                this.message='Berhasil Mengupdate Stok';
                 this.color="green"
                 this.snackbar=true;
                 this.load = false;
@@ -267,6 +270,7 @@ export default {
                 this.inputType = 'Tambah';
             }).catch(error => {
                 this.error_message=error.response.data.message;
+                this.message='Gagal update, Field Harus di Isi';
                 this.color="red"
                 this.snackbar=true;
                 this.load = false;
@@ -282,6 +286,7 @@ export default {
                 }
             }).then(response => {
                 this.error_message=response.data.message;
+                this.message='Berhasil Menghapus Stok';
                 this.color="green"
                 this.snackbar=true;
                 this.load = false;
@@ -291,6 +296,7 @@ export default {
                 this.inputType = 'Tambah';
             }).catch(error => {
                 this.error_message=error.response.data.message;
+                this.message='Gagal Hapus Stok';                
                 this.color="red"
                 this.snackbar=true;
                 this.load = false;

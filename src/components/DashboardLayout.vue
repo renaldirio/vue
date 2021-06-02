@@ -72,7 +72,6 @@
                 { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
                 { title: "Customer", icon:"mdi-account-details", to: "/customers" },
                 { title: "Meja", icon:"mdi-sofa-single", to: "/mejas" },
-                { title: "Reservasi", icon:"mdi-notebook-edit", to: "/Reservasi" },
             ],
             itemsCashier: [
                 { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
@@ -83,7 +82,6 @@
             ],
             itemsChef: [
                 { title: "Dashboard", icon:"mdi-apps-box" ,to: "/dashboard" },
-                { title: "Meja", icon:"mdi-sofa-single", to: "/mejas" },
                 { title: "Bahan", icon:"mdi-filter-menu", to: "/bahans" },
                 { title: "Stok", icon:"mdi-warehouse", to: "/stoks" },
                 { title: "Pesanan", icon:"mdi-clipboard-list", to: "/Pesanan" },
